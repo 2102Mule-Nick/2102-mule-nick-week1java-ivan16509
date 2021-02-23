@@ -30,7 +30,6 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
 		if(phrase == null || phrase.length() == 0 || phrase == "") {
 			return phrase;
 		}
@@ -88,14 +87,12 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
 			return (getSideOne() == getSideTwo() &&
 					getSideOne() == getSideThree() &&
 					getSideTwo() == getSideThree());
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
 			int equalSides = 0;
 			if(getSideOne() == getSideTwo())   equalSides++;
 			if(getSideOne() == getSideThree()) equalSides++;
@@ -105,7 +102,6 @@ public class EvaluationService {
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
 			return (getSideOne() != getSideTwo() && 
 					getSideOne() != getSideThree() &&
 					getSideTwo() != getSideThree());
@@ -113,6 +109,45 @@ public class EvaluationService {
 
 	}
 
+	// scrabble helper method
+	private boolean contains(char c, char[] array) {
+        for (char x : array) {
+            if (x == c) {
+                return true;
+            }
+        }
+        return false;
+    }
+	
+	// scrabble helper method
+	private int getLetterScore(char let) {
+		char[] point1 = {'A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'};
+		char[] point2 = {'D', 'G'};
+		char[] point3 =  {'B','*', 'C', 'M', 'P'}; 
+		char[] point4 =  {'F', 'H', 'V', 'W', 'Y'};
+		char[] point5 =  {'K'};
+		char[] point8 =  {'J', 'X'};
+		char[] point10 =  {'Z'};
+		
+		if(contains(let, point1)) {
+			return 1;
+		} else if (contains(let, point2)) {
+			return 2;
+		} else if (contains(let, point3)) {
+			return 3;
+		}  else if (contains(let, point4)) {
+			return 4;
+		} else if (contains(let, point5)) {
+			return 5;
+		} else if (contains(let, point8)) {
+			return 8;
+		} else if (contains(let, point10)) {
+			return 10;
+		} else {
+			return 0;
+		}
+	}
+	
 	/**
 	 * 4. Given a word, compute the scrabble score for that word.
 	 * 
@@ -129,8 +164,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	    int retval = 0;
+	    
+		for(int i=0; i < string.length(); i++) {
+			retval += getLetterScore(string.toUpperCase().charAt(i));
+		}
+		
+		return retval;
 	}
 
 	/**
