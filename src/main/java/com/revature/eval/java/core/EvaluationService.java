@@ -31,7 +31,11 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		if(phrase == null || phrase.length() == 0 || phrase == "") {
+			return phrase;
+		}
+		
+		return phrase.replaceAll("\\B.|\\P{L}", "").toUpperCase();
 	}
 
 	/**
@@ -85,17 +89,26 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			return (getSideOne() == getSideTwo() &&
+					getSideOne() == getSideThree() &&
+					getSideTwo() == getSideThree());
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			int equalSides = 0;
+			if(getSideOne() == getSideTwo())   equalSides++;
+			if(getSideOne() == getSideThree()) equalSides++;
+			if(getSideTwo() == getSideThree()) equalSides++;
+
+			return equalSides >= 2;
 		}
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			return (getSideOne() != getSideTwo() && 
+					getSideOne() != getSideThree() &&
+					getSideTwo() != getSideThree());
 		}
 
 	}
