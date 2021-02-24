@@ -240,14 +240,12 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		
 		if(string == null) {
 			return null;
 		}
 
 		Map<String, Integer> count = new HashMap<String,Integer>();
-		String[] splited = string.split("[ ,]+");
+		String[] splited = string.split("[ ,\n]+");
 		
 
 		for(int i=0; i < splited.length; i++) {
@@ -303,6 +301,7 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
+
 			return 0;
 		}
 
@@ -340,7 +339,30 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		char[] vowels = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z', 
+					     'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'};
+		char[] consonants = {'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'};
+		
+		String[] splited = string.split(" ");
+
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i < splited.length; i++) {
+			char vowel_to_add = ' ';
+			boolean add_vowel = false;
+			for(int j=0; j < splited[i].length(); j++) {
+				char c = splited[i].charAt(i);
+
+				if(contains(c, vowels)) {
+					
+				} else if (contains(c, consonants)){
+
+				} else {
+					sb.append(add_vowel);
+				}
+				sb.append(" ");
+			}
+		}
+		return sb.toString();
 	}
 
 	/**
