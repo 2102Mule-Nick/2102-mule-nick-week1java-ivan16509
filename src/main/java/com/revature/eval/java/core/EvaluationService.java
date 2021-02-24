@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -123,11 +124,11 @@ public class EvaluationService {
 	private int getLetterScore(char let) {
 		char[] point1 = {'A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'};
 		char[] point2 = {'D', 'G'};
-		char[] point3 =  {'B','*', 'C', 'M', 'P'}; 
+		char[] point3 =  {'B','C', 'M', 'P'}; 
 		char[] point4 =  {'F', 'H', 'V', 'W', 'Y'};
 		char[] point5 =  {'K'};
 		char[] point8 =  {'J', 'X'};
-		char[] point10 =  {'Z'};
+		char[] point10 =  {'Q', 'Z'};
 		
 		if(contains(let, point1)) {
 			return 1;
@@ -205,8 +206,28 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		// trim country code
+		 int start = 0; 
+		 if(string.charAt(0) == '+' || string.charAt(0) == '1') {
+			 start = 1;
+		 }
+		 if(string.charAt(0) == '+' || string.charAt(1) == '1') {
+			 start = 2; 
+		 }
+
+		StringBuilder sb = new StringBuilder();
+		for(int i = start; i < string.length(); i++ ) {
+			char c = string.charAt(i);
+			if(Character.isDigit(c)) {
+				sb.append(c);
+			}
+		}
+
+		if(sb.toString().length() != 10) {
+		   throw new IllegalArgumentException();
+		} else {
+			return sb.toString();
+		}
 	}
 
 	/**
@@ -220,7 +241,26 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		if(string == null) {
+			return null;
+		}
+
+		Map<String, Integer> count = new HashMap<String,Integer>();
+		String[] splited = string.split("[ ,]+");
+		
+
+		for(int i=0; i < splited.length; i++) {
+			int word_count = 0;
+			String cur_word = splited[i];
+			for(int j=0; j < splited.length; j++) {
+				if(cur_word.equals(splited[j])) {
+					word_count++;
+				}
+			}
+			count.put(cur_word, word_count);
+		}
+		return count;
 	}
 
 	/**
