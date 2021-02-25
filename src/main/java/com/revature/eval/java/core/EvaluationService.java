@@ -332,37 +332,50 @@ public class EvaluationService {
 	 * of the word, and then add an "ay" sound to the end of the word. There are a
 	 * few more rules for edge cases, and there are regional variants too.
 	 * 
-	 * See http://en.wikipedia.org/wiki/Pig_latin for more details.
+//	 * See http://en.wikipedia.org/wiki/Pig_latin for more details.
 	 * 
 	 * @param string
 	 * @return
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		char[] vowels = {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z', 
+		char[] consonants= {'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z', 
 					     'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'};
-		char[] consonants = {'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'};
+		char[] vowels = {'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'};
 		
 		String[] splited = string.split(" ");
 
 		StringBuilder sb = new StringBuilder();
 		for(int i=0; i < splited.length; i++) {
-			char vowel_to_add = ' ';
-			boolean add_vowel = false;
+			String consonant_to_add = "";
+			boolean add_consonant= false;
 			for(int j=0; j < splited[i].length(); j++) {
-				char c = splited[i].charAt(i);
+				char c = splited[i].charAt(j);
 
-				if(contains(c, vowels)) {
-					
-				} else if (contains(c, consonants)){
-
-				} else {
-					sb.append(add_vowel);
+				// move consonant and add "ay" at end
+				if(contains(c, consonants)) {
+					if(j == 0) { 	// first letter
+						add_consonant = true;
+						consonant_to_add += c;
+					} else {
+						sb.append(c);
+					}
+				// add ay at the end
+				} else if (contains(c, vowels)){
+					// skip consonant
+					sb.append(c);
 				}
-				sb.append(" ");
 			}
+
+			if(add_consonant) {
+				sb.append(consonant_to_add + "ay");
+			} else {
+				sb.append("ay");
+			}
+			sb.append(" ");
 		}
-		return sb.toString();
+		//System.out.println(sb.toString().trim());
+		return sb.toString().trim();
 	}
 
 	/**
