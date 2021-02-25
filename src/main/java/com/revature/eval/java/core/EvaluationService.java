@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -352,8 +353,11 @@ public class EvaluationService {
 			for(int j=0; j < splited[i].length(); j++) {
 				char c = splited[i].charAt(j);
 
+				// TODO consolant clusters th, sch, qu
+				
 				// move consonant and add "ay" at end
 				if(contains(c, consonants)) {
+					// TODO: handle consonant clusters th sch qu
 					if(j == 0) { 	// first letter
 						add_consonant = true;
 						consonant_to_add += c;
@@ -372,7 +376,7 @@ public class EvaluationService {
 			} else {
 				sb.append("ay");
 			}
-			sb.append(" ");
+			sb.append(" "); // new word
 		}
 		//System.out.println(sb.toString().trim());
 		return sb.toString().trim();
@@ -394,8 +398,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		ArrayList<Integer> digits = new ArrayList<Integer>();
+		int orig_input = input;
+
+		 while (input > 0) {
+		     digits.add(input % 10);
+		     input /= 10;
+		 }
+
+		 boolean retval = false;
+		 int armstrong = 0;
+		 for(int i = 0; i < digits.size(); i++) {
+			 armstrong += Math.pow(digits.get(i), digits.size());
+			 System.out.println(digits.get(i) + "\t" + digits.size());
+		 }
+		 
+		 if(armstrong == orig_input) retval = true;
+		 return retval;
 	}
 
 	/**
