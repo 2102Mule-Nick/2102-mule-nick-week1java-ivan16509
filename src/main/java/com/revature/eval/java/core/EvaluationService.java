@@ -410,7 +410,6 @@ public class EvaluationService {
 		 int armstrong = 0;
 		 for(int i = 0; i < digits.size(); i++) {
 			 armstrong += Math.pow(digits.get(i), digits.size());
-			 System.out.println(digits.get(i) + "\t" + digits.size());
 		 }
 		 
 		 if(armstrong == orig_input) retval = true;
@@ -429,7 +428,15 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> retval = new ArrayList<Long>();
+	
+		for(long i=2; i <= l; i++) {
+			while (l % i == 0) {
+				retval.add(i);
+				l /= i;
+			}
+		}
+		return retval;
 	}
 
 	/**
