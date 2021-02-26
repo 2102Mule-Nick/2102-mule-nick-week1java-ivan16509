@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -101,12 +102,10 @@ public class EvaluationService {
 		}
 
 		public boolean isIsosceles() {
-			int equalSides = 0;
-			if(getSideOne() == getSideTwo())   equalSides++;
-			if(getSideOne() == getSideThree()) equalSides++;
-			if(getSideTwo() == getSideThree()) equalSides++;
+			return (getSideOne() == getSideTwo() ||
+			       getSideOne() == getSideThree() ||
+			       getSideTwo() == getSideThree());
 
-			return equalSides >= 2;
 		}
 
 		public boolean isScalene() {
@@ -307,10 +306,20 @@ public class EvaluationService {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
-
+			Comparable<T> comp_t = (Comparable<T>) t;
+			int mid = sortedList.size() / 2;
+			if(comp_t.compareTo(sortedList.get(mid)) == 0) {
+				return mid;
+			} else if(comp_t.compareTo(sortedList.get(mid)) <= 0) {
+				sortedList = sortedList.subList(0, mid);
+				return indexOf(t);
+			} else if(comp_t.compareTo(sortedList.get(mid)) >= 0) {
+				sortedList = sortedList.subList(mid, sortedList.size());
+				return mid + indexOf(t);
+			}
 			return 0;
 		}
+		
 
 		public BinarySearch(List<T> sortedList) {
 			super();
@@ -745,8 +754,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		string.replaceAll("\\s", "");
+		if(!string.matches("^[0-9]+$")) { // contains non-numeric character
+			return false;
+		}
+
+		try {
+
+			
+		} catch (Error e){ //possible out of bounds
+			
+		}
+		
+		return true;
 	}
 
 	/**
