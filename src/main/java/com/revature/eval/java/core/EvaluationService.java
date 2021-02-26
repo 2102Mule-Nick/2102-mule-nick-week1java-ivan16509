@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -383,7 +384,6 @@ public class EvaluationService {
 			}
 			sb.append(" "); // new word
 		}
-		//System.out.println(sb.toString().trim());
 		return sb.toString().trim();
 	}
 
@@ -652,7 +652,6 @@ public class EvaluationService {
 			set.add(c);
 		}
 
-		System.out.println(set.size());
 		if(set.size() == 26) {
 			return true;
 		} else {
@@ -675,7 +674,7 @@ public class EvaluationService {
 			return given.plus((long)10e8, ChronoUnit.SECONDS);
 		}
 	}
-
+	
 	/**
 	 * 18. Given a number, find the sum of all the unique multiples of particular
 	 * numbers up to but not including that number.
@@ -690,8 +689,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		Set<Integer> s = new HashSet<Integer>();
+		for(int j = 0; j < set.length; j++) {
+			for(int k = 1; k < i; k++) {
+				if(k % set[j] == 0) {
+					s.add(k);
+				}
+			}
+		}
+		
+		
+		int sum = 0;
+		Iterator<Integer> it = s.iterator();
+		while(it.hasNext()) {
+			sum += it.next();
+		}
+		
+		return sum;
 	}
 
 	/**
