@@ -427,7 +427,6 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
 		List<Long> retval = new ArrayList<Long>();
 	
 		for(long i=2; i <= l; i++) {
@@ -480,6 +479,19 @@ public class EvaluationService {
 
 	}
 
+	boolean isPrime (int n) {
+		if(n == 0 || n == 1) {
+			return false;
+		}
+
+		 for (int i = 2; i < n; i++) {
+	            if (n % i == 0) {
+	            	return false;
+	            }
+		 }
+		return true;
+	}
+	
 	/**
 	 * 12. Given a number n, determine what the nth prime is.
 	 * 
@@ -493,8 +505,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		if(i <= 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		int cur_num = 0;
+		int prime_count = 0;
+		
+		while(prime_count != i) {
+			if(isPrime(cur_num)) {
+				prime_count++;
+			}
+
+			if(prime_count == i) {
+				break;
+			}
+
+			++cur_num;
+		}
+		
+		return cur_num;
 	}
 
 	/**
@@ -570,7 +600,29 @@ public class EvaluationService {
 	 */
 	public boolean isValidIsbn(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		List<Integer> digits = new ArrayList<Integer>();
+		for(int i = 0; i < string.length(); i++) {
+			char c = string.charAt(i);
+			if( c == 'X' || Character.isDigit(c) ) {
+				if(c == 'X') {
+					digits.add(10);
+				} else {
+					digits.add(Character.getNumericValue(c));
+				}
+			}
+		}
+		
+		if(digits.size() != 10) {
+			return false;
+		}
+		
+		int sum = 0;
+		int index = 0;
+		for(int i = 10; i > 0; i--) {
+			sum += digits.get(index++) * i;
+		}
+		
+		return sum % 11 == 0;
 	}
 
 	/**
