@@ -487,8 +487,23 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder sb = new StringBuilder();
+			for(char c : string.toCharArray()) {
+				if (Character.isUpperCase(c)) { 
+					char ch = (char)(((int)c + key - 65) % 26 + 65); 
+					sb.append(ch); 
+				} 
+			    else if (Character.isLowerCase(c)){ 
+					char ch = (char)(((int)c + key - 97) % 26 + 97); 
+					sb.append(ch); 
+				} else {
+					sb.append(c);
+				}
+			}
+//			System.out.println(key);
+			System.out.println(sb.toString());
+			
+			return sb.toString();
 		}
 
 	}
