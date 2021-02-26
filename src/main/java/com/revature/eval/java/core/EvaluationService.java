@@ -855,7 +855,6 @@ public class EvaluationService {
 			
 		int retval = 0;
 		if(operator.equals("plus")) {
-			System.out.println("do something");
 			retval = operand1 + operand2;
 		} else if (operator.equals("minus")) {
 			retval = operand1 - operand2;
