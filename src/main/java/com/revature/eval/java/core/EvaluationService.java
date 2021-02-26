@@ -500,8 +500,6 @@ public class EvaluationService {
 					sb.append(c);
 				}
 			}
-//			System.out.println(key);
-			System.out.println(sb.toString());
 			
 			return sb.toString();
 		}
@@ -581,6 +579,19 @@ public class EvaluationService {
 	 *
 	 */
 	static class AtbashCipher {
+		
+	    private static final String PLAIN = "abcdefghijklmnopqrstuvwxyz";
+	    private static final String CIPHER = "zyxwvutsrqponmlkjihgfedcba";
+
+	    static boolean isPunctuation(char c) {
+	        return c == ','
+	            || c == '.'
+	            || c == '!'
+	            || c == '?'
+	            || c == ':'
+	            || c == ';'
+	            ;
+	    }
 
 		/**
 		 * Question 13
@@ -589,8 +600,25 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			string.replaceAll("\\s", "");
+			StringBuilder sb = new StringBuilder();
+			int count_five = 0;
+			for(char c : string.toLowerCase().toCharArray()) {
+				if(count_five == 5) {
+					sb.append(" ");
+					count_five = 0;
+				}
+
+				if(Character.isLetter(c)) {
+					sb.append(PLAIN.indexOf(c) >= 0 ? CIPHER.toCharArray()[PLAIN.indexOf(c)]:c);
+				} else if (!isPunctuation(c) && c != ' '){ // not punction or white space
+					sb.append(c);
+				}
+
+				count_five++;
+			}
+			System.out.println(sb.toString());
+			return sb.toString();
 		}
 
 		/**
@@ -600,8 +628,10 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder sb = new StringBuilder();
+			for(char c : string.toCharArray()) {
+			}
+			return sb.toString();
 		}
 	}
 
@@ -774,11 +804,8 @@ public class EvaluationService {
 			return false;
 		}
 
-		try {
-
-			
+		try {			
 		} catch (Error e){ //possible out of bounds
-			
 		}
 		
 		return true;
