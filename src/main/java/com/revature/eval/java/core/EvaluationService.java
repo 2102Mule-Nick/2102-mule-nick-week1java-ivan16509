@@ -845,8 +845,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		// crop what is... and question mark
+		string = string.replaceAll("multiplied by", "multipliedby");
+		string = string.replaceAll("divided by", "dividedby");
+		String[] splited = string.substring(8, string.length()-1).split(" ");
+		int operand1 = Integer.parseInt(splited[0]);
+		int operand2 = Integer.parseInt(splited[2]);
+		String operator = splited[1];
+			
+		int retval = 0;
+		if(operator.equals("plus")) {
+			System.out.println("do something");
+			retval = operand1 + operand2;
+		} else if (operator.equals("minus")) {
+			retval = operand1 - operand2;
+		} else if (operator.equals("multipliedby")) {
+			retval = operand1 * operand2;
+		}	else if (operator.equals("dividedby")) {
+			retval = operand1 / operand2;
+		}	
+	
+		return retval;
 	}
 
 }
