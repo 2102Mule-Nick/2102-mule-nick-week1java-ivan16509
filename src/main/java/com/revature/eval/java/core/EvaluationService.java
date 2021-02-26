@@ -1,10 +1,15 @@
 package com.revature.eval.java.core;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -599,7 +604,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
+		// extract digits from string into an integer list
 		List<Integer> digits = new ArrayList<Integer>();
 		for(int i = 0; i < string.length(); i++) {
 			char c = string.charAt(i);
@@ -639,8 +644,20 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		// remove all spaces and convert all characters to lower case
+		char[] chars = string.replaceAll("\\s", "").toLowerCase().toCharArray();
+		Set<Character> set = new HashSet<Character>();
+
+		for(char c: chars){
+			set.add(c);
+		}
+
+		System.out.println(set.size());
+		if(set.size() == 26) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -652,8 +669,11 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		if(given instanceof LocalDate) {
+			return ((LocalDate) given).atStartOfDay().plus((long)10e8, ChronoUnit.SECONDS);
+		} else {
+			return given.plus((long)10e8, ChronoUnit.SECONDS);
+		}
 	}
 
 	/**
