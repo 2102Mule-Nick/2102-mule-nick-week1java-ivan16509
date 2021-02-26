@@ -758,7 +758,6 @@ public class EvaluationService {
 			}
 		}
 		
-		
 		int sum = 0;
 		Iterator<Integer> it = s.iterator();
 		while(it.hasNext()) {
@@ -767,6 +766,16 @@ public class EvaluationService {
 		
 		return sum;
 	}
+
+	boolean isPunctuation(char c) {
+        return c == ','
+            || c == '.'
+            || c == '!'
+            || c == '?'
+            || c == ':'
+            || c == ';'
+            ;
+    }
 
 	/**
 	 * 19. Given a number determine whether or not it is valid per the Luhn formula.
@@ -805,16 +814,43 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		string.replaceAll("\\s", "");
-		if(!string.matches("^[0-9]+$")) { // contains non-numeric character
-			return false;
-		}
+		string = string.replaceAll("\\s", "");
+		StringBuilder sb = new StringBuilder();
 
-		try {			
-		} catch (Error e){ //possible out of bounds
+		for(int i=0; i < string.length(); i++) {
+			if(Character.isDigit(string.charAt(i))) {
+				sb.append(string.charAt(i));
+			}
+			if(Character.isLetter(string.charAt(i)) || 
+					string.charAt(i) == '-') {
+				return false;
+			}
 		}
+		System.out.println(sb.toString());
 		
-		return true;
+		int digits = sb.toString().length();
+		int sum = 0;
+		boolean second_digit = false;
+		
+		System.out.println(digits);
+		for(int i = digits - 1; i >= 0; i--) {
+			int d = sb.toString().charAt(i) - '0';
+			
+			if (second_digit) {
+				d = d * 2;
+			}
+			
+			if(d > 9) {
+				d -= 9;
+			}
+
+			System.out.println(d);
+			sum += d;
+			second_digit = !second_digit;
+		}
+	
+		System.out.println(sum);
+		return sum % 10 == 0;
 	}
 
 	/**
