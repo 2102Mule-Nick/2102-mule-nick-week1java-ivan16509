@@ -600,7 +600,7 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			string.replaceAll("\\s", "");
+			string = string.replaceAll("\\s", "");
 			StringBuilder sb = new StringBuilder();
 			int count_five = 0;
 			for(char c : string.toLowerCase().toCharArray()) {
@@ -617,8 +617,7 @@ public class EvaluationService {
 
 				count_five++;
 			}
-			System.out.println(sb.toString());
-			return sb.toString();
+			return sb.toString().trim();
 		}
 
 		/**
@@ -628,10 +627,17 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
+			string = string.replaceAll("\\s", "");
 			StringBuilder sb = new StringBuilder();
-			for(char c : string.toCharArray()) {
+			for(char c : string.toLowerCase().toCharArray()) {
+				if(Character.isLetter(c)) {
+					sb.append(CIPHER.indexOf(c) >= 0 ? PLAIN.toCharArray()[CIPHER.indexOf(c)]:c);
+				} else {
+					sb.append(c);
+				}
+
 			}
-			return sb.toString();
+			return sb.toString().trim();
 		}
 	}
 
